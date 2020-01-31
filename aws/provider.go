@@ -405,6 +405,7 @@ func Provider() terraform.ResourceProvider {
 			"aws_cognito_identity_pool_roles_attachment":              resourceAwsCognitoIdentityPoolRolesAttachment(),
 			"aws_cognito_identity_provider":                           resourceAwsCognitoIdentityProvider(),
 			"aws_cognito_user_group":                                  resourceAwsCognitoUserGroup(),
+			"aws_cognito_user":                                        resourceAwsCognitoUser(),
 			"aws_cognito_user_pool":                                   resourceAwsCognitoUserPool(),
 			"aws_cognito_user_pool_client":                            resourceAwsCognitoUserPoolClient(),
 			"aws_cognito_user_pool_domain":                            resourceAwsCognitoUserPoolDomain(),

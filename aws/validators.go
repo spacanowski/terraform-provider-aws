@@ -1778,6 +1778,36 @@ func validateCognitoResourceServerScopeName(v interface{}, k string) (ws []strin
 	return
 }
 
+func validateCognitoUserUsername(v interface{}, k string) (ws []string, errors []error) {
+	value := v.(string)
+
+	if len(value) < 1 {
+		errors = append(errors, fmt.Errorf("%q cannot be less than 1 character", k))
+	}
+	if len(value) > 128 {
+		errors = append(errors, fmt.Errorf("%q cannot be longer than 128 character", k))
+	}
+	if !regexp.MustCompile(`[\p{L}\p{M}\p{S}\p{N}\p{P}]+`).MatchString(value) {
+		errors = append(errors, fmt.Errorf(`%q must satisfy regular expression pattern: [\p{L}\p{M}\p{S}\p{N}\p{P}]+`, k))
+	}
+	return
+}
+
+func validateCognitoUserPassword(v interface{}, k string) (ws []string, errors []error) {
+	value := v.(string)
+
+	if len(value) < 6 {
+		errors = append(errors, fmt.Errorf("%q cannot be less than 6 character", k))
+	}
+	if len(value) > 256 {
+		errors = append(errors, fmt.Errorf("%q cannot be longer than 256 character", k))
+	}
+	if !regexp.MustCompile(`[\S]+`).MatchString(value) {
+		errors = append(errors, fmt.Errorf(`%q must satisfy regular expression pattern: [\S]+`, k))
+	}
+	return
+}
+
 func validateWafMetricName(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexp.MustCompile(`^[0-9A-Za-z]+$`).MatchString(value) {
@@ -2405,5 +2435,20 @@ func validateRoute53ResolverName(v interface{}, k string) (ws []string, errors [
 			"%q cannot be greater than 64 characters", k))
 	}
 
+	return
+}
+
+func validateAttributeTypeName(v interface{}, k string) (ws []string, errors []error) {
+	value := v.(string)
+
+	if len(value) < 1 {
+		errors = append(errors, fmt.Errorf("%q cannot be less than 1 character", k))
+	}
+	if len(value) > 32 {
+		errors = append(errors, fmt.Errorf("%q cannot be longer than 32 character", k))
+	}
+	if !regexp.MustCompile(`[\p{L}\p{M}\p{S}\p{N}\p{P}]+`).MatchString(value) {
+		errors = append(errors, fmt.Errorf(`%q must satisfy regular expression pattern: [\p{L}\p{M}\p{S}\p{N}\p{P}]+`, k))
+	}
 	return
 }

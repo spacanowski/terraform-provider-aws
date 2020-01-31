@@ -5616,3 +5616,15 @@ func flattenRoute53ResolverRuleTargetIps(targetAddresses []*route53resolver.Targ
 
 	return vTargetIps
 }
+
+func expandCognitoUserAttributes(attrs []interface{}) []*cognitoidentityprovider.AttributeType {
+	attributes := make([]*cognitoidentityprovider.AttributeType, len(attrs))
+	for i, attribute := range attrs {
+		attr := attribute.(map[string]interface{})
+		attributes[i] = &cognitoidentityprovider.AttributeType{
+			Name:  aws.String(attr["name"].(string)),
+			Value: aws.String(attr["value"].(string)),
+		}
+	}
+	return attributes
+}
